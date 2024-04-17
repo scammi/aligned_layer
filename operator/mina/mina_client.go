@@ -8,12 +8,12 @@ import (
 
 type Pokemon struct {
 	Name string `json:"name"`
-	// Add more fields as needed
 }
 
 func main() {
 	// Make the HTTP GET request to the Pokémon API
-	resp, err := http.Get("https://pokeapi.co/api/v2/pokemon/ditto")
+	// resp, err := http.Get("https://pokeapi.co/api/v2/pokemon/ditto")
+	resp, err := http.Get("http://localhost:3000")
 	if err != nil {
 		fmt.Println("Error making HTTP request:", err)
 		return
