@@ -126,6 +126,8 @@ func parseVerifierId(verifierIdStr string) (common.VerifierId, error) {
 		return common.Kimchi, nil
 	case "sp1":
 		return common.Sp1BabyBearBlake3, nil
+	case "mina":
+		return common.Mina, nil
 	default:
 		// returning this just to return something, the error should be handled
 		// by the caller.

@@ -108,9 +108,15 @@ func (tg *TaskGenerator) Start(ctx context.Context) error {
 				if err != nil {
 					continue
 				}
+			case 5:
+				proof, pubInput = generateRandomProof(r)
+				verifierId := r.Intn(3)
+				err := tg.SendNewTask(proof, pubInput, common.VerifierId(verifierId))
+				if err != nil {
+					continue
+				}
 			}
 		}
-
 	}
 
 }
