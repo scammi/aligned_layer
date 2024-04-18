@@ -402,7 +402,7 @@ func (o *Operator) ProcessNewTaskCreatedLog(newTaskCreatedLog *cstaskmanager.Con
 		}
 		return taskResponse
 	case uint16(common.Mina):
-		VerificationResult = o.VerifyMinaProof()
+		VerificationResult := o.VerifyMinaProof()
 		taskResponse := &cstaskmanager.IAlignedLayerTaskManagerTaskResponse{
 			ReferenceTaskIndex: newTaskCreatedLog.TaskIndex,
 			ProofIsCorrect:     VerificationResult,
@@ -496,7 +496,7 @@ func (o *Operator) VerifyMinaProof() bool {
 		return false
 	}
 
-	verificationResult =: veriverification.Success
+	verificationResult := verification.Success
 	fmt.Println("Status:", verificationResult)
 
 	return verificationResult
