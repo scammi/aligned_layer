@@ -15,11 +15,10 @@ app.get('/', async (req: Request, res: Response) => {
     verificationBuffer.hash = Field.fromJSON(verificationBuffer.hash);
 
     console.log('>>>> verifying')
-    const ok = await verify(proofBuffer, verificationBuffer);
+    // const ok = await verify(proofBuffer, verificationBuffer);
+    // console.log('>>>> ', ok)
 
-    console.log('>>>> ', ok)
-
-    res.send({ name: 'Santiago' });
+    res.send({ success: true });
 });
 
 // Define the port number

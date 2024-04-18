@@ -4,7 +4,9 @@ import (
 	"bytes"
 	"context"
 	"encoding/hex"
+	"encoding/json"
 	"fmt"
+	"net/http"
 	"os"
 
 	"github.com/consensys/gnark-crypto/ecc"
@@ -399,7 +401,13 @@ func (o *Operator) ProcessNewTaskCreatedLog(newTaskCreatedLog *cstaskmanager.Con
 			ProofIsCorrect:     VerificationResult,
 		}
 		return taskResponse
-
+	case uint16(common.Mina):
+		VerificationResult = o.VerifyMinaProof()
+		taskResponse := &cstaskmanager.IAlignedLayerTaskManagerTaskResponse{
+			ReferenceTaskIndex: newTaskCreatedLog.TaskIndex,
+			ProofIsCorrect:     VerificationResult,
+		}
+		return taskResponse
 	default:
 		o.logger.Error("Unrecognized verifier id")
 		return nil
@@ -463,4 +471,33 @@ func (o *Operator) VerifyPlonkProof(proofBytes []byte, pubInputBytes []byte) boo
 	} else {
 		return true
 	}
+}
+
+func (o *Operator) VerifyMinaProof() bool {
+	type Verification struct {
+		Success bool `json:"success"`
+	}
+
+	resp, err := http.Get("http://localhost:3000")
+	if err != nil {
+		fmt.Println("Error making HTTP request:", err)
+		return false
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		fmt.Println("Error: unexpected status code:", resp.StatusCode)
+		return false
+	}
+
+	var verification Verification
+	if err := json.NewDecoder(resp.Body).Decode(&verification); err != nil {
+		fmt.Println("Error decoding response body:", err)
+		return false
+	}
+
+	verificationResult =: veriverification.Success
+	fmt.Println("Status:", verificationResult)
+
+	return verificationResult
 }

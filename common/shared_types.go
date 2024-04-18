@@ -7,4 +7,5 @@ const (
 	GnarkPlonkBls12_381
 	Kimchi
 	Sp1BabyBearBlake3
+	Mina
 )
