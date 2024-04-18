@@ -5,6 +5,7 @@
   "license": "MIT",
   "dependencies": {
     "express": "^4.19.2",
+    "msgpack-lite": "^0.1.26",
     "o1js": "^0.18.0",
     "typescript": "^5.4.5"
   }
