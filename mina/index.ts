@@ -6,7 +6,6 @@ const msgpack = require("msgpack-lite");
 
 const app = express();
 
-// Define a route to handle GET requests to the root URL
 app.get('/', async (req: Request, res: Response) => {
     const proof = await fs.promises.readFile('./proofs/proof.bin');
     const verification = await fs.promises.readFile('./proofs/verification.bin');
@@ -17,9 +16,19 @@ app.get('/', async (req: Request, res: Response) => {
     const verificationBuffer = JSON.parse(JSON.stringify(verificationDecoded));
     verificationBuffer.hash = Field.fromJSON(verificationDecoded.hash);
 
-    console.log('>>>> verifying', verificationBuffer, proofDecoded)
+    console.log('Verifying >>>>>>');
+
     const ok = await verify(proofDecoded, verificationBuffer);
 
+    console.log('Verifying complete >>>>>>', ok);
+
+    res.send({ success: ok });
+});
+
+app.get('/demo', async (req: Request, res: Response) => {
+    console.log('Verifying >>>>>>');
+
+    console.log('Verifying complete >>>>>>', true);
     res.send({ success: true });
 });
 

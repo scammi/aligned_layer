@@ -199,7 +199,7 @@ send-kimchi-proof:
 		2>&1 | zap-pretty
 
 send-mina-proof:
-	go run task_sender/cmd/main.go --proof tests/testing_data/kimchi/kimchi_ec_add.proof \
-		--pub-input tests/testing_data/kimchi/kimchi_verifier_index.bin \
+	go run task_sender/cmd/main.go --proof tests/testing_data/mina/proof.bin \
+		--pub-input tests/testing_data/mina/verification.bin \
 		--verifier-id mina \
 		2>&1 | zap-pretty

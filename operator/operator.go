@@ -478,7 +478,7 @@ func (o *Operator) VerifyMinaProof() bool {
 		Success bool `json:"success"`
 	}
 
-	resp, err := http.Get("http://localhost:3000")
+	resp, err := http.Get("http://localhost:3000/demo")
 	if err != nil {
 		fmt.Println("Error making HTTP request:", err)
 		return false
